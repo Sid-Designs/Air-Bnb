@@ -1,0 +1,78 @@
+<nav class="container-lg">
+  <ul class="row">
+    <div class="col-10 col-lg-4">
+      <a
+        href="/"
+        class="brand d-flex justify-contnet-center align-items-center"
+      >
+        <img
+          src="/images/Airbnb-Logo-PNG-Pic.png"
+          alt=""
+          width="40"
+          height="40"
+        />
+        <span class="fw-bold fs-3 ps-1">airbnb</span>
+      </a>
+    </div>
+    <div id="mob-nav" class="col-2 text-center fs-1 d-lg-none"><i class="fa-solid fa-bars"></i></div>
+    <div class="col-4 mid d-none d-lg-flex col-lg-4">
+      <form action="" class="px-4 px-md-0 position-relative">
+        <input type="text" maxlength="20" placeholder="Search Hotels" />
+        <i class="fa-solid fa-magnifying-glass mx-4 mx-md-0"></i>
+      </form>
+    </div>
+    <ul class="col-4 nav-list fs-5 col-md-6 d-none d-lg-flex col-lg-4">
+      <li class=""><a href="/">Home</a></li>
+      <li class=""><a href="/hotels">Hotels(<%= total %>)</a></li>
+      <% if(currUser) { %>
+        <li class=""><a href="/hotels/add">Add Hotel</a></li>
+        <% } %>
+        <% if(!currUser) { %>
+          <li class=""><a href="/login">SignUp/Login</a></li>
+          <% } %>
+    </ul>
+  </div>
+</nav>
+<hr />
+<div class="container-lg mobile">
+  <div class="row">
+    <ul class="col-12 mob-navBar">
+      <li class=""><a href="/">Home</a></li>
+      <li class=""><a href="/hotels">Hotels(<%= total %>)</a></li>
+      <li class=""><a href="/hotels/add">Add Hotel</a></li>
+    </ul>
+  </div>
+  <hr />
+</div>
+
+<script>
+const mobNav = document.querySelector("#mob-nav");
+const icon = document.querySelector("i");
+const mob = document.querySelector(".mobile");
+
+// Ensure .mob is hidden initially
+mob.style.display = "none";
+
+if (mobNav) {
+  mobNav.addEventListener("click", () => {
+    if (icon.classList.contains("fa-bars")) {
+      icon.classList.remove("fa-bars");
+      icon.classList.add("fa-xmark");
+      mob.style.display = "block";
+      setTimeout(() => {
+        mob.style.transform = "translateY(0)";
+      }, 10); // Slight delay to ensure the transition is applied
+    } else {
+      icon.classList.remove("fa-xmark");
+      icon.classList.add("fa-bars");
+      mob.style.transform = "translateY(-150%)";
+        mob.style.display = "none";
+    }
+  });
+}
+
+
+
+
+</script> 
+

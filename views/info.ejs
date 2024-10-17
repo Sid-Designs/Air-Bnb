@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Air Bnb | <%= lists.title %></title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://kit.fontawesome.com/ba9da31e74.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="shortcut icon"
+      href="/images/Airbnb-Logo-PNG-Pic.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="/css/navbar.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/rating.css" />
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.js"></script>
+    <style>
+      .img {
+        /* background: url("<%= lists.image.url %>") center/cover no-repeat; */
+        height: 70vh;
+        border-radius: 20px;
+        width: 100%;
+      }
+      b {
+        font-weight: 500;
+      }
+      #map {
+        height: 50vh;
+        width: 100%;
+      }
+      .mapboxgl-ctrl-attrib-inner,
+      .mapboxgl-ctrl-logo {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('includes/navbar.ejs') %> <%- include('includes/flash.ejs') %>
+    <div class="container my-3 my-md-5">
+      <div class="row gap-4 justify-content-center align-items-center">
+        <div class="col-md-9">
+          <img
+            class="img px-0"
+            src="<%= lists.image.url %>"
+            alt="<%= lists.title %>"
+          />
+        </div>
+        <div class="col-9 fs-3 fw-medium mt-3"><%= lists.title %></div>
+        <div class="col-9 fs-3 fw-normal">
+          <b>Price</b> :- <span class="fs-5" style="color: #ff545f">₹</span>
+          <span class="fs-5"><%= lists.price %></span>
+        </div>
+        <div class="col-9 fs-4">
+          <b>Details :-</b><br />
+          <span class="fs-5"><%= lists.description %></span>
+        </div>
+        <div class="col-9 fs-4">
+          <b>Location</b> :- <span class="fs-5"><%= lists.location %></span>
+        </div>
+        <div class="col-9 fs-4">
+          <b>Country</b> :- <span class="fs-5"><%= lists.country %></span>
+        </div>
+        <div class="col-9 fs-4">
+          <b>Owner</b> :- <span class="fs-5"><%= lists.owner.username %></span>
+        </div>
+        <div class="col-9">
+          <a
+            href="/hotels/<%= lists._id %>/edit"
+            class="btn py-2"
+            style="background-color: #ff545f; color: #fff; width: fit-content"
+            >Edit Details</a
+          >
+          <a
+            href="/hotels/<%= lists._id %>/remove?_method=DELETE"
+            class="btn mx-4 py-2"
+            style="background-color: #ff545f; color: #fff; width: fit-content"
+            >Remove Hotel</a
+          >
+        </div>
+        <hr class="mt-4 mb-2" />
+      </div>
+    </div>
+    <form method="post" action="/hotels/<%= lists._id %>/add/review">
+      <div class="container">
+        <div class="row d-flex justify-content-center align-items-center">
+          <div class="mb-3 col-9">
+            <fieldset class="starability-slot">
+              <legend>Review</legend>
+              <input
+                type="radio"
+                id="no-rate"
+                class="input-no-rate"
+                name="rating"
+                value="0"
+                checked
+                aria-label="No rating."
+              />
+              <input type="radio" id="first-rate1" name="rating" value="1" />
+              <label for="first-rate1" title="Terrible">1 stars</label>
+              <input type="radio" id="first-rate2" name="rating" value="2" />
+              <label for="first-rate2" title="Not good">2 stars</label>
+              <input type="radio" id="first-rate3" name="rating" value="3" />
+              <label for="first-rate3" title="Average">3 stars</label>
+              <input type="radio" id="first-rate4" name="rating" value="4" />
+              <label for="first-rate4" title="Very good">4 stars</label>
+              <input type="radio" id="first-rate5" name="rating" value="5" />
+              <label for="first-rate5" title="Amazing">5 stars</label>
+            </fieldset>
+          </div>
+          <div class="mb-3 col-9">
+            <label for="comment" class="form-label fw-medium fs-4"
+              >Comments</label
+            >
+            <textarea
+              class="form-control"
+              id="comment"
+              name="comment"
+              rows="5"
+              required
+            ></textarea>
+          </div>
+          <div class="col-9">
+            <button
+              href="/hotels/<%= lists._id %>/add/review"
+              class="btn py-2"
+              style="background-color: #ff545f; color: #fff; width: fit-content"
+            >
+              Submit
+            </button>
+          </div>
+          <div class="col-9 mt-5 fs-4">
+            All Reviews
+            <hr class="mt-3" />
+          </div>
+          <% for(let review of lists.review) {%>
+          <div class="col-9 mt-3 lh-1">
+            <p class="pb-5">
+              <span
+                class="starability-result"
+                data-rating="<%= review.rating %>"
+              ></span>
+            </p>
+            <p><b>Review</b> :- <%= review.comment %></p>
+            <p><b>Author</b> :- <%= review.author.username %></p>
+            <p>
+              <a
+                href="/hotels/<%= lists._id %>/remove/<%= review._id %>/review"
+                class="btn"
+                style="
+                  background-color: #ff545f;
+                  color: #fff;
+                  width: fit-content;
+                "
+                >Delete</a
+              >
+            </p>
+            <hr class="mt-2" />
+          </div>
+          <% } %>
+          <div class="col-9 mt-3">
+            <h2>Where You Will be</h2>
+            <div id="map"></div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <script>
+      const mapToken = "<%= process.env.MAP_TOKEN %>";
+      const coords = <%- JSON.stringify(lists.geometry.coordinates) %>;
+      mapboxgl.accessToken = mapToken;
+      const map = new mapboxgl.Map({
+        container: "map", // container ID
+        style: "mapbox://styles/mapbox/streets-v12",
+        center: coords, // starting position [lng, lat]
+        zoom: 15, // starting zoom
+      });
+
+      const marker1 = new mapboxgl.Marker({ color: '#ff545f', rotation: 0 })
+        .setLngLat(coords)
+        .setPopup(new mapboxgl.Popup({offset: 25})
+        .setHTML("<h1>Exact location provided after booking</h1>"))
+        .addTo(map);
+      console.log(coords);
+    </script>
+
+    <%- include('includes/footer.ejs') %>
+  </body>
+</html>

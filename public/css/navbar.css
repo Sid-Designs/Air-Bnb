@@ -1,0 +1,155 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    font-family: "Poppins", sans-serif;
+}
+
+a {
+    text-decoration: none;
+    width: fit-content;
+}
+
+nav {
+    height: 10vh;
+}
+
+.row {
+    height: 100%;
+    align-items: center;
+}
+
+.brand {
+    text-decoration: none;
+    color: #ff5a5f;
+}
+
+/* Mid */
+.mid {
+    height: 70%;
+}
+
+form {
+    /* border: 1px solid #ff5a5f; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    height: 100%;
+}
+
+form input {
+    height: 80%;
+    flex-grow: 1;
+    accent-color: #ff545f;
+    padding-left: 10px;
+    caret-color: #ff545f;
+    border: 2px solid #00000052;
+    border-radius: 20px;
+}
+
+form i {
+    border: 2px solid #ff545fb3;
+    height: 80%;
+    padding: 10px 12px;
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    border-radius: 0 20px 20px 0;
+    text-align: center;
+    font-size: 18px;
+}
+
+/* Nav List */
+.nav-list {
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 25px;
+    height: 80%;
+}
+
+.nav-list li a {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    cursor: pointer;
+    color: #000;
+    font-family: 'Poppins', sans-serif;
+    transition: all .2s ease-in-out;
+}
+
+.nav-list li a:hover {
+    color: #ff545f;
+}
+
+hr {
+    margin-top: 0px;
+}
+
+/* Mobile Navbar */
+#mob-nav {
+    cursor: pointer;
+}
+
+#mob-nav i {
+    cursor: pointer;
+    font-size: x-large;
+}
+
+.mob-navBar {
+    display: flex;
+    list-style: none;
+    text-decoration: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    font-size: 24px;
+}
+
+.mob-search {
+    height: 7vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mob-search form i {
+    height: 80%;
+}
+
+.mob-navBar li a {
+    color: #000;
+}
+
+.mob-navBar li a:hover {
+    color: #ff545f;
+}
+
+.mob {
+    display: none;
+    transform: translateY(-150%);
+    transition: transform 0.3s ease-in-out;
+}
+
+@media (min-width: 768px) {
+    form {
+        width: 60%;
+    }
+}
+
+@media (min-width: 1024px) {
+    form {
+        width: 100%;
+    }
+}
+
+img.imgCnt {
+    height: 250px;
+}
+
+.card {
+    height: 460px;
+}
